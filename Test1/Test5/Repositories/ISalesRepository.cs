@@ -28,6 +28,8 @@ namespace Test5.Repositories
         int Tryfind(int[] a, int value);
         //Xoá sử dụng T-SQL
         void Delete();
+        //Lấy danh sách theo Id sử dụng HQL
+        IList<Sales> GetListbyId(int key);
         void Update(int key);
         void Delete(int key);
     }

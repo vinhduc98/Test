@@ -18,3 +18,23 @@ D:\WorkSpaceVS\Intern\Test1\Test5\bin\Debug\NHibernate.xml
 D:\WorkSpaceVS\Intern\Test1\Test5\bin\Debug\Remotion.Linq.xml
 D:\WorkSpaceVS\Intern\Test1\Test5\bin\Debug\Remotion.Linq.EagerFetching.xml
 D:\WorkSpaceVS\Intern\Test1\Test5\obj\Debug\Test5.csproj.CopyComplete
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Test5.exe.config
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Test5.exe
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Test5.pdb
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Antlr3.Runtime.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\FluentNHibernate.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Iesi.Collections.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\NHibernate.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Remotion.Linq.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Remotion.Linq.EagerFetching.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Antlr3.Runtime.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\FluentNHibernate.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Iesi.Collections.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\NHibernate.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Remotion.Linq.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Remotion.Linq.EagerFetching.xml
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.csprojAssemblyReference.cache
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.csproj.CoreCompileInputs.cache
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.csproj.CopyComplete
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.exe
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.pdb

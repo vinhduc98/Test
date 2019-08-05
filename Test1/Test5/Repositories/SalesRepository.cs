@@ -19,16 +19,9 @@ namespace Test5.Repositories
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    //try
-                    //{
-                        session.Save(s);
-                        transaction.Commit();
-                        session.Close();
-                    //}
-                    //catch (Exception)
-                    //{
-                    //    transaction.Rollback();
-                    //}
+                    session.Save(s);
+                    transaction.Commit();
+                    session.Close();
                 }
             }
         }
@@ -118,6 +111,7 @@ namespace Test5.Repositories
             //Ko tim duoc gi
             return -1;
         }
+
         public void Update(int key)
         {
             using (var session = FluentNHibernateHleper.OpenSession())
@@ -129,6 +123,7 @@ namespace Test5.Repositories
                 session.Close();
             }
         }
+
         public void Delete(int key)
         {
             using (var session = FluentNHibernateHleper.OpenSession())
@@ -153,6 +148,16 @@ namespace Test5.Repositories
                 transaction.Commit();
                 session.Close();
             }         
+        }
+
+        public IList<Sales> GetListbyId(int key)
+        {
+            using (var session = FluentNHibernateHleper.OpenSession())
+            {
+                var query = session.CreateQuery("FROM Sales Where Id='"+key+"'");
+                IList<Sales> listsales = query.List<Sales>();
+                return listsales;
+            }
         }
 
     }
