@@ -38,3 +38,7 @@ C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.csproj.CoreCo
 C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.csproj.CopyComplete
 C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.exe
 C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\obj\Debug\Test5.pdb
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\WebActivatorEx.dll
+C:\Users\DELL G7\Documents\GitHub\Test\Test1\Test5\bin\Debug\System.Diagnostics.DiagnosticSource.xml

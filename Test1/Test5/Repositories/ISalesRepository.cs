@@ -32,5 +32,7 @@ namespace Test5.Repositories
         IList<Sales> GetListbyId(int key);
         void Update(int key);
         void Delete(int key);
+        //Tạo 1 danh sách Sales
+        IEnumerable<Sales> CreateTestObjects(int count);
     }
 }

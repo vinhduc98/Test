@@ -15,12 +15,16 @@ namespace Test5.Repositories
     {
         public void Add(Sales s)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
+            using (ITransaction transaction = session.BeginTransaction())
             {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Save(s);
+                try
+                {                    
+                    session.Insert(s);
                     transaction.Commit();
+                }
+                finally
+                {
                     session.Close();
                 }
             }
@@ -28,7 +32,7 @@ namespace Test5.Repositories
 
         public void Delete(Sales s)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
@@ -36,11 +40,14 @@ namespace Test5.Repositories
                     {
                         session.Delete(s);
                         transaction.Commit();
-                        session.Close();
                     }
                     catch (Exception)
                     {
                         transaction.Rollback();
+                    }
+                    finally
+                    {
+                        session.Close();
                     }
                 }
             }
@@ -48,7 +55,7 @@ namespace Test5.Repositories
 
         public void Update(Sales s)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
@@ -62,13 +69,17 @@ namespace Test5.Repositories
                     {
                         transaction.Rollback();
                     }
+                    finally
+                    {
+                        session.Close();
+                    }
                 }
             }
         }
 
         public ICollection<Sales> GetById(int key)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var a = session.CreateCriteria(typeof(Sales)).Add(Restrictions.Eq("Id", key)).List<Sales>();
                 return a;
@@ -78,7 +89,7 @@ namespace Test5.Repositories
         public IList<Sales> Where(Expression<Func<Sales, bool>> con)
         {
             
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 return session.Query<Sales>().Where(con).ToList();
             }
@@ -86,7 +97,7 @@ namespace Test5.Repositories
 
         public int[] GetId()
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
 
                 int[] id_s = session.Query<Sales>().Select(c => c.Id).ToArray();
@@ -114,7 +125,7 @@ namespace Test5.Repositories
 
         public void Update(int key)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 var query = session.CreateQuery("Update Sales set salesperson='yasuo' Where Id='" + key + "'")
@@ -126,7 +137,7 @@ namespace Test5.Repositories
 
         public void Delete(int key)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 var query = session.CreateQuery("Delete From Sales Where Id='" + key + "'")
@@ -139,7 +150,7 @@ namespace Test5.Repositories
         public void Delete()
         {
            
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 var query = session.CreateSQLQuery("SELECT 1 WHILE @@ROWCOUNT > 0" +
@@ -152,13 +163,21 @@ namespace Test5.Repositories
 
         public IList<Sales> GetListbyId(int key)
         {
-            using (var session = FluentNHibernateHleper.OpenSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var query = session.CreateQuery("FROM Sales Where Id='"+key+"'");
                 IList<Sales> listsales = query.List<Sales>();
                 return listsales;
             }
         }
-
+        public IEnumerable<Sales> CreateTestObjects(int count)
+        {
+            List<Sales> ob = new List<Sales>(count);
+            for(int i=0;i<count;i++)
+            {
+                ob.Add(new Sales { Id=i+1,Salesperson="KV: "+i,so1=1000,so2=20000});
+            }
+            return ob;
+        }
     }
 }

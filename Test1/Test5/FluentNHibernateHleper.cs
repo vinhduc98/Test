@@ -10,21 +10,33 @@ using System.Linq;
 using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using Test5.Domain;
 using ISession = NHibernate.ISession;
 
 namespace Test5
 {
     public class FluentNHibernateHleper
     {
-        public static ISession OpenSession()
+        private static ISessionFactory _sessionFactory;
+        private static ISessionFactory SessionFactory
         {
-            string connectionString = @"Server=DESKTOP-15V18E8;Database=SecondProject;Trusted_Connection=True";
+            get
+            {
+                if (_sessionFactory == null)
+                {
+                    InitializeSessionFactory();
+                }
+                return _sessionFactory;
+            }
+        }
+        private static void InitializeSessionFactory()
+        {
 
-            ISessionFactory sessionFactory = Fluently.Configure()
+            _sessionFactory = Fluently.Configure()
 
-                .Database(MsSqlConfiguration.MsSql2005
+                .Database(MsSqlConfiguration.MsSql2008
 
-                  .ConnectionString(connectionString).ShowSql()
+                  .ConnectionString(@"Data Source=DESKTOP-15V18E8;Initial Catalog=SecondProject;Integrated Security=True").AdoNetBatchSize(100).ShowSql()
 
                 )
 
@@ -32,19 +44,19 @@ namespace Test5
 
                           m.FluentMappings
 
-                              .AddFromAssemblyOf<Program>())
+                              .AddFromAssemblyOf<Sales>())
 
                 .ExposeConfiguration(cfg => new SchemaExport(cfg)
 
-                 .Create(false, false))
+                 .Create(true, true))
 
                 .BuildSessionFactory();
-
-            return sessionFactory.OpenSession();
-
         }
+        public static IStatelessSession GetSession()
+        {
+            return SessionFactory.OpenStatelessSession();
+        }
+        //session.OpenStateLessSession
 
-        
-       
     }
 }
