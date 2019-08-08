@@ -34,9 +34,9 @@ namespace Test5
 
             _sessionFactory = Fluently.Configure()
 
-                .Database(MsSqlConfiguration.MsSql2008
+                .Database(MsSqlConfiguration.MsSql2012.AdoNetBatchSize(100)
 
-                  .ConnectionString(@"Data Source=DESKTOP-15V18E8;Initial Catalog=SecondProject;Integrated Security=True").AdoNetBatchSize(100).ShowSql()
+                  .ConnectionString(@"Data Source=DESKTOP-15V18E8;Initial Catalog=SecondProject;Integrated Security=True").ShowSql()
 
                 )
 
@@ -44,15 +44,15 @@ namespace Test5
 
                           m.FluentMappings
 
-                              .AddFromAssemblyOf<Sales>())
+                              .AddFromAssemblyOf<Purchase>())
 
                 .ExposeConfiguration(cfg => new SchemaExport(cfg)
 
-                 .Create(true, true))
+                 .Create(false, false))
 
                 .BuildSessionFactory();
         }
-        public static IStatelessSession GetSession()
+        public static IStatelessSession statelessSession()
         {
             return SessionFactory.OpenStatelessSession();
         }

@@ -12,7 +12,7 @@ namespace Test5.Mappings
     {
         public SalesMappings()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Increment();
             Map(x => x.Salesperson);
             Map(x => x.Area);
             Map(x => x.so1);

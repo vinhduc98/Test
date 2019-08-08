@@ -25,11 +25,12 @@ namespace Test5.Repositories
         /// <param name="a"></param> mảng Id
         /// <param name="value"></param> Giá trị id cần tìm
         /// <returns></returns>
-        int Tryfind(int[] a, int value);
+        int findID(int[] a, int value);
         //Xoá sử dụng T-SQL
         void Delete();
         //Lấy danh sách theo Id sử dụng HQL
         IList<Sales> GetListbyId(int key);
+        IList<Sales> GetAll();
         void Update(int key);
         void Delete(int key);
         //Tạo 1 danh sách Sales
