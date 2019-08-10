@@ -18,29 +18,28 @@ namespace Test5
         {
             ISalesRepository rp = new SalesRepository();
             //var testobs = rp.CreateTestObjects(5000000);
-            //Stopwatch st = Stopwatch.StartNew();
-            //foreach (var testob in testobs)
+            Stopwatch st = Stopwatch.StartNew();
+            //bulkinsert();
+            rp.Add(5000000);
+
+            //using (var session = FluentNHibernateHleper.GetStatelessSession())
+            //using (ITransaction tran = session.BeginTransaction())
             //{
-            //    rp.Add(testob);
-            //}
-            //for (int i = 0; i < 5000; i++)
-            //{
-            //    var fromDB = rp.Where(x => x.Id == i);
+            //    for (int i = 0; i < 5000000; i++)
             //    {
-            //        foreach (var s in fromDB)
-            //        {
-            //            Console.WriteLine(s.Salesperson + "," + s.Id + "," + s.Area);
-            //        }
+            //        Sales s = new Sales() { Id = i+1  };
+            //        session.Delete(s);
             //    }
+            //    tran.Commit();
             //}
 
-            //st.Stop();
-            //Console.WriteLine(st.Elapsed);
+            st.Stop();
+            Console.WriteLine(st.Elapsed);
+            //WorkA();
             /*rp.Delete();*/ //Xoá tat ca record su dung SQL
-            //bulkinsert();
             //WorkA();
             //WorkB();
-            WorkC();
+            //WorkC();
             Console.ReadKey();
         }
         //Chay 100 Task get query
@@ -62,7 +61,6 @@ namespace Test5
                         st = Stopwatch.StartNew();
                         //Get theo Id  
                         rp.Where(x => x.Id == randomID);
-                        //rp.GetListbyId(randomID);
                         //rp.GetById(randomID);
                         st.Stop();
                         Console.WriteLine(st.Elapsed);
@@ -144,16 +142,11 @@ namespace Test5
             dt.Columns.Add("so6");
             dt.Columns.Add("Value");
 
-
-            Stopwatch st = Stopwatch.StartNew();
-            for (int i = 0; i < 6000000; i++)
+            for (int i = 0; i < 5000000; i++)
             {
                 dt.Rows.Add(i + 1, "So " + i + 1, "KV:" + i + 1, 1, 2, 3, 4, 5, 6, 100000);
 
             }
-            st.Stop();
-            Console.WriteLine(st.Elapsed);
-
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -161,19 +154,19 @@ namespace Test5
 
                 var transaction = connection.BeginTransaction();
 
-                //using (var sqlBulk = new SqlBulkCopy(connection, SqlBulkCopyOptions.KeepIdentity, transaction))
-                //{
-                //    sqlBulk.DestinationTableName = "Sales";
-                //    sqlBulk.WriteToServer(dt);
+                using (var sqlBulk = new SqlBulkCopy(connection, SqlBulkCopyOptions.KeepIdentity, transaction))
+                {
+                    sqlBulk.DestinationTableName = "Sales";
+                    sqlBulk.WriteToServer(dt);
+                }
                 using (var sqlBulk = new SqlBulkCopy(_connectionString))
                 {
                     sqlBulk.DestinationTableName = "Sales";
-                    sqlBulk.BatchSize = 2000;
+                    sqlBulk.BatchSize = 100000;
                     sqlBulk.WriteToServer(dt);
                 }
                 //}
             }
-            Console.ReadKey();
         }
         public static void WorkC()
         {

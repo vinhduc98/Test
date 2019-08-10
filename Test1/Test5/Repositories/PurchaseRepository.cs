@@ -13,12 +13,12 @@ namespace Test5.Repositories
     {
         public void Add(Purchase p)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 try
                 {
-                    session.Insert(p);
+                    session.Save(p);
                     tran.Commit();
                 }
                 catch (Exception)
@@ -34,7 +34,7 @@ namespace Test5.Repositories
         }
         public void Update(Purchase p)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 try
@@ -55,7 +55,7 @@ namespace Test5.Repositories
         }
         public void Delete(Purchase p)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 try
@@ -77,7 +77,7 @@ namespace Test5.Repositories
 
         public ICollection<Purchase> GetById(int key)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var a = session.CreateCriteria(typeof(Purchase)).Add(Restrictions.Eq("Id", key)).List<Purchase>();
                 return a;
@@ -86,7 +86,7 @@ namespace Test5.Repositories
 
         public IList<Purchase> GetAll()
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var all = session.Query<Purchase>().ToList();
                 return all;

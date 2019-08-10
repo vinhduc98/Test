@@ -33,7 +33,12 @@ namespace Test5.Repositories
         IList<Sales> GetAll();
         void Update(int key);
         void Delete(int key);
-        //Tạo 1 danh sách Sales
-        IEnumerable<Sales> CreateTestObjects(int count);
+        //Tạo 1 danh sách Object de them vao
+        IEnumerable<Sales> CreateObjectAdd(int count);
+        //Tao 1 danh sách Object de xoa
+        //insert theo so luong record
+        void Add(int amount);
+        //insert theo so luon record su dung stateless
+        void Add1(int amount);
     }
 }

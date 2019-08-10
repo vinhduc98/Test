@@ -14,30 +14,46 @@ namespace Test5.Repositories
     public class SalesRepository : ISalesRepository
     {
         private readonly object locksales = new object();
-        public void Add(Sales s)
+        private ISession session = FluentNHibernateHleper.GetSession();
+        private IStatelessSession statelesssession = FluentNHibernateHleper.GetStatelessSession();
+        public void Add(Sales p)
         {
-            var session = FluentNHibernateHleper.statelessSession();
             using (ITransaction transaction = session.BeginTransaction())
             {
-                try
-                {
-                    session.Insert(s);
-                    transaction.Commit();
+                session.Save(p);
+                transaction.Commit();
+            }
+            session.Close();
+        }
+        public void Add(int amount)
+        {
+            var obs = CreateObjectAdd(amount);
+            using (ITransaction tran = session.BeginTransaction())
+            {               
+                foreach(var ob in obs)
+                {                   
+                    session.Save(ob);
                 }
-                catch
-                {
-                    transaction.Rollback();
-                }
-                finally
-                {
-                    session.Close();
-                }
+                tran.Commit();
             }
         }
 
+        public void Add1(int amount)
+        {
+            var obs = CreateObjectAdd(amount);
+            using (ITransaction tran = statelesssession.BeginTransaction())
+            {
+                statelesssession.SetBatchSize(100000);
+                foreach (var ob in obs)
+                {
+                    statelesssession.Insert(ob);
+                }
+                tran.Commit();
+            }
+        }
         public void Delete(Sales s)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+   
             using (ITransaction transaction = session.BeginTransaction())
             {
                 try
@@ -59,7 +75,7 @@ namespace Test5.Repositories
 
         public void Update(Sales s)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 try
@@ -81,7 +97,7 @@ namespace Test5.Repositories
 
         public ICollection<Sales> GetById(int key)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var a = session.CreateCriteria(typeof(Sales)).Add(Restrictions.Eq("Id", key)).List<Sales>();
                 return a;
@@ -91,7 +107,7 @@ namespace Test5.Repositories
         public IList<Sales> Where(Expression<Func<Sales, bool>> con)
         {
             
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 return session.Query<Sales>().Where(con).ToList();
             }
@@ -100,7 +116,7 @@ namespace Test5.Repositories
         //Lay 1 mang Id trong CSDL
         public int[] GetId()
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 int[] id_s = session.Query<Sales>().Select(c => c.Id).ToArray();
                 return id_s;
@@ -128,7 +144,7 @@ namespace Test5.Repositories
 
         public void Update(int key)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 var query = session.CreateQuery("Update Sales set salesperson='yasuo' Where Id='" + key + "'")
@@ -140,7 +156,7 @@ namespace Test5.Repositories
 
         public void Delete(int key)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction tran = session.BeginTransaction())
             {
                 var query = session.CreateQuery("Delete From Sales Where Id='" + key + "'")
@@ -153,7 +169,7 @@ namespace Test5.Repositories
         public void Delete()
         {
            
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 var query = session.CreateSQLQuery("SELECT 1 WHILE @@ROWCOUNT > 0" +
@@ -167,7 +183,7 @@ namespace Test5.Repositories
         //Lay danh sach theo Id su dung HQL
         public IList<Sales> GetListbyId(int key)
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var query = session.CreateQuery("FROM Sales Where Id='"+key+"'");
                 IList<Sales> listsales = query.List<Sales>();
@@ -176,7 +192,7 @@ namespace Test5.Repositories
         }
 
         //Tao doi tuong de insert theo so luong count
-        public IEnumerable<Sales> CreateTestObjects(int count)
+        public IEnumerable<Sales> CreateObjectAdd(int count)
         {
             List<Sales> ob = new List<Sales>(count);
             for(int i=0;i<count;i++)
@@ -189,11 +205,13 @@ namespace Test5.Repositories
         //Lay tat ca danh sach
         public IList<Sales>GetAll()
         {
-            using (var session = FluentNHibernateHleper.statelessSession())
+            using (var session = FluentNHibernateHleper.GetSession())
             {
                 var all = session.Query<Sales>().ToList();
                 return all;
             }
         }
+        //Commit
+       
     }
 }
