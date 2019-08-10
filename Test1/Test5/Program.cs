@@ -20,8 +20,9 @@ namespace Test5
             //var testobs = rp.CreateTestObjects(5000000);
             Stopwatch st = Stopwatch.StartNew();
             //bulkinsert();
-            rp.Add(5000000);
-
+            //rp.Add1(5000000);
+            //Random ran = new Random();
+            rp.GetById(39874691);//00:00:00.0862029
             //using (var session = FluentNHibernateHleper.GetStatelessSession())
             //using (ITransaction tran = session.BeginTransaction())
             //{

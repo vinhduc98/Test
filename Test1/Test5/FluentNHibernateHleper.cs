@@ -34,7 +34,7 @@ namespace Test5
 
             _sessionFactory = Fluently.Configure()
 
-                .Database(MsSqlConfiguration.MsSql2012.AdoNetBatchSize(1000)
+                .Database(MsSqlConfiguration.MsSql2012.AdoNetBatchSize(5000)
 
                   .ConnectionString(@"Data Source=DESKTOP-15V18E8;Initial Catalog=SecondProject;Integrated Security=True").ShowSql()
 

@@ -25,6 +25,7 @@ namespace Test5.Repositories
             }
             session.Close();
         }
+
         public void Add(int amount)
         {
             var obs = CreateObjectAdd(amount);
@@ -34,6 +35,7 @@ namespace Test5.Repositories
                 {                   
                     session.Save(ob);
                 }
+                session.Flush();
                 tran.Commit();
             }
         }
@@ -43,7 +45,6 @@ namespace Test5.Repositories
             var obs = CreateObjectAdd(amount);
             using (ITransaction tran = statelesssession.BeginTransaction())
             {
-                statelesssession.SetBatchSize(100000);
                 foreach (var ob in obs)
                 {
                     statelesssession.Insert(ob);
@@ -197,7 +198,7 @@ namespace Test5.Repositories
             List<Sales> ob = new List<Sales>(count);
             for(int i=0;i<count;i++)
             {
-                ob.Add(new Sales {Id=i+1, Salesperson="KV: "+i,so1=1000,so2=20000});
+                ob.Add(new Sales {Id=i+1, Salesperson="Nguoi nhen "+i,Area="New Gate",so1=1000,so2=20000});
             }
             return ob;
         }
