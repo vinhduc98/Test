@@ -14,6 +14,10 @@ namespace Test5
 {
     class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             ISalesRepository rp = new SalesRepository();
@@ -22,7 +26,10 @@ namespace Test5
             //bulkinsert();
             //rp.Add1(5000000);
             //Random ran = new Random();
-            rp.GetById(39874691);//00:00:00.0862029
+            var p = new SalesRepository();
+            WorkC();
+            //p.proSelectAll();
+            /*rp.GetById(39874691);*///00:00:00.0862029
             //using (var session = FluentNHibernateHleper.GetStatelessSession())
             //using (ITransaction tran = session.BeginTransaction())
             //{
@@ -33,6 +40,7 @@ namespace Test5
             //    }
             //    tran.Commit();
             //}
+            GC.Collect();
 
             st.Stop();
             Console.WriteLine(st.Elapsed);
@@ -46,6 +54,19 @@ namespace Test5
         //Chay 100 Task get query
         public static void WorkA()
         {
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw e;
+            }
+            finally
+            {
+
+            }
             var tasks = new Task[100];  //Tao mang 100 task
             var timeSpan = new List<TimeSpan>();
             Random random = new Random();

@@ -212,7 +212,16 @@ namespace Test5.Repositories
                 return all;
             }
         }
-        //Commit
+        
+        //public void proSelectAll(int Id)
+        //{
+        //    using (ITransaction tran = session.BeginTransaction())
+        //    {
+        //        var query = session.CreateSQLQuery("exec SelectAllbyId :Id").SetParameter;
+        //        IList<Sales> list= query.Li
+        //        tran.Commit();
+        //    }
+        //}
        
     }
 }
